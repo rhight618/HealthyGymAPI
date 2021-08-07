@@ -1,13 +1,13 @@
-package naggingann;
+package healthygym;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NaggingAnnApplication {
+public class HealthyGymApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NaggingAnnApplication.class, args);
+        SpringApplication.run(HealthyGymApplication.class, args);
     }
-
-} 
+    
+}
