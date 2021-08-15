@@ -13,7 +13,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -22,52 +32,144 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "newUser",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"firstName\": \"Tom\",\r\n        \"lastName\": \"Rod\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "replaceUser",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"firstName\": \"Uncle\",\r\n        \"lastName\": \"Buck\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "deleteUser",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "newCheckIn",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"userId\": 2,\r\n        \"checkin_timestamp\": \"2021-10-10 12:00:00\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/checkin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"checkin"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "newSelfReport",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"userId\": 2,\r\n        \"report_timestamp\": \"2021-10-12 12:00:00\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/selfreport",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"selfreport"
+							]
+						}
 					},
 					"response": []
 				},
@@ -76,7 +178,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/checkins/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"checkins",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -85,7 +197,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/selfreports/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"selfreports",
+								"2"
+							]
+						}
 					},
 					"response": []
 				}
@@ -99,7 +221,21 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://3.128.220.28:8080/user/1",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -108,52 +244,168 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://3.128.220.28:8080/users",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "newUser",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"firstName\": \"Tom\",\r\n        \"lastName\": \"Rod\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://3.128.220.28:8080/user",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"user"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "replaceUser",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"firstName\": \"Uncle\",\r\n        \"lastName\": \"Buck\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://3.128.220.28:8080/user/1",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "deleteUser",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://3.128.220.28:8080/user/1",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "newCheckIn",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"userId\": 1,\r\n        \"checkin_timestamp\": \"2021-10-13 12:00:00\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://3.128.220.28:8080/checkin",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"checkin"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "newSelfReport",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"userId\": 2,\r\n        \"report_timestamp\": \"2021-10-12 12:00:00\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://3.128.220.28:8080/selfreport",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"selfreport"
+							]
+						}
 					},
 					"response": []
 				},
@@ -162,7 +414,21 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://3.128.220.28:8080/checkins/23",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"checkins",
+								"23"
+							]
+						}
 					},
 					"response": []
 				},
@@ -171,7 +437,21 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://3.128.220.28:8080/selfreports/1",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"selfreports",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
