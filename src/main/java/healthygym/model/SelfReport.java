@@ -17,6 +17,8 @@ public class SelfReport {
 	
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private Long userId;
+    private boolean fourteen_days;
+    private boolean positive_test;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp report_timestamp;
     
@@ -38,6 +40,18 @@ public class SelfReport {
 	public void setReport_timestamp(Timestamp report_timestamp) {
 		this.report_timestamp = report_timestamp;
 	}
+	public boolean isFourteen_days() {
+		return fourteen_days;
+	}
+	public void setFourteen_days(boolean fourteen_days) {
+		this.fourteen_days = fourteen_days;
+	}
+	public boolean isPositive_test() {
+		return positive_test;
+	}
+	public void setPositive_test(boolean positive_test) {
+		this.positive_test = positive_test;
+	}
 	
 	@Override
     public boolean equals(Object o) {
@@ -46,12 +60,14 @@ public class SelfReport {
         SelfReport selfReport = (SelfReport) o;
         return Objects.equals(userId, selfReport.userId) &&
                Objects.equals(report_timestamp, selfReport.report_timestamp) &&
+               Objects.equals(fourteen_days, selfReport.fourteen_days) &&
+               Objects.equals(positive_test, selfReport.positive_test) &&
                Objects.equals(id, selfReport.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, report_timestamp);
+        return Objects.hash(id, userId, fourteen_days, positive_test, report_timestamp);
     }
     
     @Override
@@ -59,7 +75,10 @@ public class SelfReport {
 
         StringBuilder builder = new StringBuilder();
         builder.append("SelfReport{id=").append(id).append(", userId=")
-                .append(userId).append(", report_timestamp=")
+                .append(userId)
+                .append(", fourteen_days=").append(fourteen_days)
+                .append(", positive_test=").append(positive_test)
+                .append(", report_timestamp=")
                 .append(report_timestamp).append("}");
 
         return builder.toString();

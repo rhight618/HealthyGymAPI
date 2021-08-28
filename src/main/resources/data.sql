@@ -27,8 +27,10 @@ DROP TABLE IF EXISTS selfreportings;
 CREATE TABLE selfreportings (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   user_id INT NOT NULL,
+  fourteen_days BOOLEAN NOT NULL,
+  positive_test BOOLEAN NOT NULL,
   report_timestamp TIMESTAMP NOT NULL
 );
 
-INSERT INTO selfreportings (user_id, report_timestamp) VALUES
-  (1, '2021-10-01 12:00:00');
+INSERT INTO selfreportings (user_id, fourteen_days, positive_test, report_timestamp) VALUES
+  (1, 0, 0, '2021-10-01 12:00:00');

@@ -153,7 +153,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"userId\": 2,\r\n        \"report_timestamp\": \"2021-10-12 12:00:00\"\r\n    }",
+							"raw": "    {\r\n        \"userId\": 1,\r\n        \"fourteen_days\": true,\r\n        \"positive_test\": true,\r\n        \"report_timestamp\": \"2021-10-18 12:00:00\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -198,14 +198,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/selfreports/2",
+							"raw": "localhost:8080/selfreports/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"selfreports",
-								"2"
+								"1"
 							]
 						}
 					},
