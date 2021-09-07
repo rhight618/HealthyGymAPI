@@ -9,4 +9,5 @@ import healthygym.model.SelfReport;
 public interface SelfReportRepository extends JpaRepository<SelfReport, Long>{
 	
 	List<SelfReport> findByUserId(Long userId);
+	
 }

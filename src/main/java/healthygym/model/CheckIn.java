@@ -19,6 +19,7 @@ public class CheckIn {
     private Long userId;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp checkin_timestamp;
+    private int risk_class;
     
     public CheckIn() {
     }
@@ -28,6 +29,14 @@ public class CheckIn {
         this.checkin_timestamp = checkin_timestamp;
     }
     
+	public int getRisk_class() {
+		return risk_class;
+	}
+
+	public void setRisk_class(int risk_class) {
+		this.risk_class = risk_class;
+	}
+
 	public Long getId() {
 		return id;
 	}

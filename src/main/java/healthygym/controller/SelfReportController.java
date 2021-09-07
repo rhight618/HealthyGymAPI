@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import healthygym.model.SelfReport;
+import healthygym.repository.CheckInRepository;
 import healthygym.repository.SelfReportRepository;
 
 @RestController
 public class SelfReportController {
 	
     private SelfReportRepository selfReportRepository;
+    private CheckInRepository checkInRepository;
 
-	public SelfReportController(SelfReportRepository selfReportRepository) {
+	public SelfReportController(SelfReportRepository selfReportRepository, CheckInRepository checkInRepository) {
         this.selfReportRepository = selfReportRepository;
+        this.checkInRepository = checkInRepository;
     }
 	
 	@GetMapping("/selfreports/{userId}")
@@ -27,7 +30,9 @@ public class SelfReportController {
 	
 	@PostMapping("/selfreport")
 	public SelfReport newSelfReport(@RequestBody SelfReport selfReport) {
-	    return selfReportRepository.save(selfReport);
+		selfReportRepository.save(selfReport);
+		checkInRepository.updateRiskForCommonCheckinsByUserId(selfReport.getReport_timestamp(), selfReport.getUserId(), (selfReport.isPositive_test())? 2 : 1);
+		return selfReport;
 	}
 
 }
