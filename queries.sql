@@ -3,6 +3,11 @@ select * from healthygymdb1.users;
 truncate healthygymdb1.users;
 truncate healthygymdb1.checkins;
 
+ALTER TABLE healthygymdb1.riskdetail
+  DROP COLUMN hour;
+
+insert into healthygymdb1.riskdetail (day_of_week, hour_value , risk_class) Values (1,3,0)
+
 update healthygymdb1.checkins set risk_class = 0;
 
 CALL UpdateRiskForCommonCheckins(2,'2021-10-19 21:00:00',2);

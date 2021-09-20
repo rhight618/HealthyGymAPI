@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class RiskDetail {
 	
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-    private int hour;
+    private int hour_value;
     private int day_of_week;
     private int risk_class;
     
@@ -29,11 +29,11 @@ public class RiskDetail {
 	}
 
 	public int getHour() {
-		return hour;
+		return hour_value;
 	}
 
-	public void setHour(int hour) {
-		this.hour = hour;
+	public void setHour(int hour_value) {
+		this.hour_value = hour_value;
 	}
 
 	public int getDay_of_week() {
@@ -57,14 +57,14 @@ public class RiskDetail {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RiskDetail risksdetail = (RiskDetail) o;
-        return Objects.equals(hour, risksdetail.hour) &&
+        return Objects.equals(hour_value, risksdetail.hour_value) &&
                Objects.equals(day_of_week, risksdetail.day_of_week) &&
                Objects.equals(id, risksdetail.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, hour, day_of_week);
+        return Objects.hash(id, hour_value, day_of_week);
     }
     
     @Override
@@ -72,7 +72,7 @@ public class RiskDetail {
 
         StringBuilder builder = new StringBuilder();
         builder.append("RiskDetail{id=").append(id).append(", hour=")
-                .append(hour).append(", day_of_week=")
+                .append(hour_value).append(", day_of_week=")
                 .append(day_of_week).append("}");
 
         return builder.toString();
