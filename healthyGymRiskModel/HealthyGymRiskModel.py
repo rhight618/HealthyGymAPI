@@ -24,11 +24,11 @@ def home():
         db_Info = connection.get_server_info()
         print("Connected to MySQL Server version ", db_Info)
         cursor = connection.cursor()
-        cursor.execute("select DAYOFWEEK(a.checkin_timestamp) as checkin_weekday, HOUR(a.checkin_timestamp) as checkin_hour, a.risk_class as class from healthygymdb1.checkins a")
+        cursor.execute("select DAYOFWEEK(a.checkin_timestamp) as day_of_week, HOUR(a.checkin_timestamp) as hour_value, a.risk_class as risk_class from healthygymdb1.checkins a")
         records = cursor.fetchall()
         print("Total number of rows in table: ", cursor.rowcount)
 
-        df = pd.DataFrame(records, columns=['checkin_weekday', 'checkin_hour' , 'risk_class'])
+        df = pd.DataFrame(records, columns=['day_of_week', 'hour_value' , 'risk_class'])
         #print(df)
 
         X=df.drop('risk_class', axis=1)
@@ -51,7 +51,7 @@ def home():
                 rows.append([a, b])
                 #print(rows)
 
-        testDF = pd.DataFrame(rows, columns=["checkin_weekday", "checkin_hour"])
+        testDF = pd.DataFrame(rows, columns=["day_of_week", "hour_value"])
         #print(testDF)
 
         y_pred = svclassifier.predict(X_test)
