@@ -2,6 +2,7 @@ package healthygym.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,12 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import healthygym.model.SelfReport;
 import healthygym.repository.CheckInRepository;
 import healthygym.repository.SelfReportRepository;
+import healthygym.service.RiskModelServiceImpl;
 
 @RestController
 public class SelfReportController {
 	
     private SelfReportRepository selfReportRepository;
     private CheckInRepository checkInRepository;
+    
+    @Autowired
+    private RiskModelServiceImpl riskModelService;
 
 	public SelfReportController(SelfReportRepository selfReportRepository, CheckInRepository checkInRepository) {
         this.selfReportRepository = selfReportRepository;
@@ -32,6 +37,7 @@ public class SelfReportController {
 	public SelfReport newSelfReport(@RequestBody SelfReport selfReport) {
 		selfReportRepository.save(selfReport);
 		checkInRepository.updateRiskForCommonCheckinsByUserId(selfReport.getReport_timestamp(), selfReport.getUserId(), (selfReport.isPositive_test())? 2 : 1);
+		String result = riskModelService.updateRiskModel();
 		return selfReport;
 	}
 
