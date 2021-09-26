@@ -51,7 +51,7 @@ def home():
                 rows.append([a, b])
                 #print(rows)
 
-        testDF = pd.DataFrame(rows, columns=["day_of_week", "hour_value"])
+        testDF = pd.DataFrame(rows, columns=["checkin_weekday", "checkin_hour"])
         #print(testDF)
 
         y_pred = svclassifier.predict(X_test)
