@@ -47,12 +47,26 @@
 				},
 				{
 					"name": "newUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body Contains Full Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(pm.iterationData.get(\"FirstName\"));\r",
+									"    pm.expect(pm.response.text()).to.include(pm.iterationData.get(\"LastName\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"firstName\": \"Tom\",\r\n        \"lastName\": \"Rod\"\r\n    }",
+							"raw": "{\r\n    \"firstName\": \"{{FirstName}}\",\r\n    \"lastName\": \"{{LastName}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -121,12 +135,109 @@
 				},
 				{
 					"name": "newCheckIn",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//get iteration and userList variables\r",
+									"var currentIter = parseInt(pm.collectionVariables.get(\"iterCount\"));\r",
+									"var totalUsers = parseInt(pm.collectionVariables.get(\"totalUsers\"));\r",
+									"var userListMaxSize = parseInt(pm.collectionVariables.get(\"userListMaxSize\"));\r",
+									"\r",
+									"var userList;\r",
+									"if(currentIter == 0){\r",
+									"    userList = [];\r",
+									"}else{\r",
+									"    userList = pm.collectionVariables.get(\"UserList\");\r",
+									"}\r",
+									"\r",
+									"if(userList.length == userListMaxSize){\r",
+									"    console.log(\"Resetting user list\");\r",
+									"    userList = [];\r",
+									"}\r",
+									"\r",
+									"currentIter = currentIter + 1;\r",
+									"pm.collectionVariables.set(\"iterCount\", currentIter);\r",
+									"\r",
+									"//get a new userId that hasnt been used already\r",
+									"var userId = 0;\r",
+									"let fLen = userList.length;\r",
+									"let keepLooping = true;\r",
+									"let userExists = false;\r",
+									"\r",
+									"while(keepLooping){\r",
+									"    userExists = false;\r",
+									"    userId = Math.floor(Math.random() * totalUsers) + 1;\r",
+									"    for (let i = 0; i < fLen; i++) {\r",
+									"        //console.log(\"Newly generated userId: \" + userId);\r",
+									"        //console.log(\"Existing userId from list: \" + userList[i]);\r",
+									"        if(userList[i] == userId){ \r",
+									"            //console.log(\"user id exists in list\");\r",
+									"            userExists=true;\r",
+									"        }   \r",
+									"    }\r",
+									"\r",
+									"    if(!userExists){\r",
+									"        keepLooping=false;\r",
+									"        userList.push(userId);\r",
+									"    }\r",
+									"\r",
+									"}\r",
+									"\r",
+									"var day = parseInt(pm.collectionVariables.get(\"day\"));\r",
+									"\r",
+									"//console.log(\"Current Iter : \" + currentIter + \" % 40 = Modulus: \" + currentIter % 40);\r",
+									"\r",
+									"var currentMod = currentIter % 40;\r",
+									"\r",
+									"if(currentMod == 0){\r",
+									"    day = day + 1\r",
+									"}\r",
+									"\r",
+									"var dayString = (day.toString().length > 1)? day.toString() : \"0\" + day;\r",
+									"//console.log(dayString);\r",
+									"\r",
+									"var morning = 40 * .20;\r",
+									"var noon = 40 * .40;\r",
+									"var evening = 40 * 1;\r",
+									"\r",
+									"var checkin_timestamp;\r",
+									"if(currentMod <= morning){\r",
+									"    checkin_timestamp = \"2021-10-\"+ dayString + \" 06:00:00\"; \r",
+									"}else if(currentMod > morning && currentMod <= noon){\r",
+									"    checkin_timestamp = \"2021-10-\"+ dayString + \" 12:00:00\"; \r",
+									"}else{\r",
+									"    checkin_timestamp = \"2021-10-\"+ dayString + \" 18:00:00\"; \r",
+									"}\r",
+									"\r",
+									"pm.collectionVariables.set(\"User\", userId);\r",
+									"pm.collectionVariables.set(\"UserList\", userList);\r",
+									"pm.collectionVariables.set(\"day\", day);\r",
+									"pm.collectionVariables.set(\"Checkin_TS\", checkin_timestamp);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body Contains UserId\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"risk_class\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"userId\": 2,\r\n        \"checkin_timestamp\": \"2021-10-10 12:00:00\"\r\n    }",
+							"raw": "    {\r\n        \"userId\": {{User}},\r\n        \"checkin_timestamp\": \"{{Checkin_TS}}\",\r\n        \"risk_class\": 0\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -153,7 +264,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"userId\": 1,\r\n        \"fourteen_days\": true,\r\n        \"positive_test\": true,\r\n        \"report_timestamp\": \"2021-10-18 12:00:00\"\r\n    }",
+							"raw": "    {\r\n        \"userId\": 5,\r\n        \"fourteen_days\": true,\r\n        \"positive_test\": false,\r\n        \"report_timestamp\": \"2021-10-12 21:00:00\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -187,6 +298,43 @@
 							"path": [
 								"checkins",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskDetailByDOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/risk/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"risk",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRiskModel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/riskmodel",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"riskmodel"
 							]
 						}
 					},
@@ -385,7 +533,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"userId\": 2,\r\n        \"report_timestamp\": \"2021-10-12 12:00:00\"\r\n    }",
+							"raw": "    {\r\n        \"userId\": 20,\r\n        \"fourteen_days\": true,\r\n        \"positive_test\": true,\r\n        \"report_timestamp\": \"2021-10-18 21:00:00\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -393,7 +541,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://3.128.220.28:8080/selfreport",
+							"raw": "http://3.128.220.28:8080/checkin",
 							"protocol": "http",
 							"host": [
 								"3",
@@ -403,7 +551,7 @@
 							],
 							"port": "8080",
 							"path": [
-								"selfreport"
+								"checkin"
 							]
 						}
 					},
@@ -433,6 +581,51 @@
 					"response": []
 				},
 				{
+					"name": "updateRiskModel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://3.128.220.28:5000/riskmodel",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "5000",
+							"path": [
+								"riskmodel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskDetailByDOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://3.128.220.28:8080/risk/6",
+							"protocol": "http",
+							"host": [
+								"3",
+								"128",
+								"220",
+								"28"
+							],
+							"port": "8080",
+							"path": [
+								"risk",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getSelfReportsByUserId",
 					"request": {
 						"method": "GET",
@@ -456,6 +649,64 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "User",
+			"value": "0"
+		},
+		{
+			"key": "Checkin_TS",
+			"value": "2021-10-19 21:00:00"
+		},
+		{
+			"key": "iterCount",
+			"value": "0"
+		},
+		{
+			"key": "UserList",
+			"value": ""
+		},
+		{
+			"key": "day",
+			"value": "1"
+		},
+		{
+			"key": "hour",
+			"value": "6"
+		},
+		{
+			"key": "sixPMCheckinCOunt",
+			"value": "0"
+		},
+		{
+			"key": "userListMaxSize",
+			"value": "20"
+		},
+		{
+			"key": "totalUsers",
+			"value": "49"
 		}
 	]
 }
