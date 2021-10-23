@@ -1,10 +1,14 @@
 select * from healthygymdb1.checkins;
 select * from healthygymdb1.users;
+select * from healthygymdb1.riskdetail;
 truncate healthygymdb1.users;
 truncate healthygymdb1.checkins;
 
+
+select * from healthygymdb1.riskdetail where day_of_week = 7 and hour_value = 7
+
 ALTER TABLE healthygymdb1.riskdetail
-  DROP COLUMN hour;
+  DROP COLUMN id;
 
 insert into healthygymdb1.riskdetail (day_of_week, hour_value , risk_class) Values (1,3,0)
 

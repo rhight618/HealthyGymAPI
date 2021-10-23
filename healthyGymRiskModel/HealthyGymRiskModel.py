@@ -24,7 +24,9 @@ def home():
         db_Info = connection.get_server_info()
         print("Connected to MySQL Server version ", db_Info)
         cursor = connection.cursor()
-        cursor.execute("select DAYOFWEEK(a.checkin_timestamp) as day_of_week, HOUR(a.checkin_timestamp) as hour_value, a.risk_class as risk_class from healthygymdb1.checkins a")
+        cursor.execute("select DAYOFWEEK(a.checkin_timestamp) as day_of_week, " + 
+            "HOUR(a.checkin_timestamp) as hour_value, a.risk_class as risk_class" + 
+            "from healthygymdb1.checkins a")
         records = cursor.fetchall()
         print("Total number of rows in table: ", cursor.rowcount)
 
@@ -41,6 +43,10 @@ def home():
 
         #print(y_test)
 
+        y_pred = svclassifier.predict(X_test)
+
+        print(confusion_matrix(y_test,y_pred))
+
         cursor.execute("truncate healthygymdb1.riskdetail")
 
         rows = []
@@ -52,15 +58,8 @@ def home():
                 #print(rows)
 
         testDF = pd.DataFrame(rows, columns=["day_of_week", "hour_value"])
-        #print(testDF)
-
-        y_pred = svclassifier.predict(X_test)
-
-        print(confusion_matrix(y_test,y_pred))
-        #print(classification_report(y_test,y_pred))
 
         testDF_pred = svclassifier.predict(testDF)
-        #print(testDF_pred)
 
         testDF['risk_class'] = testDF_pred
         testDF['id'] = 0
