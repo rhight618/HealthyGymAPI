@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./UserController.html" title="healthygym.controller.UserController" alt="" coords="16,17,117,42"/>
+<area shape="rect" id="node2_1" href="./SelfReportController.html" title="healthygym.controller.SelfReportController" alt="" coords="163,17,298,42"/>
+<area shape="rect" id="node3_2" href="./RiskDetailController.html" title="healthygym.controller.RiskDetailController" alt="" coords="344,17,477,42"/>
+<area shape="rect" id="node4_3" href="./CheckInController.html" title="healthygym.controller.CheckInController" alt="" coords="523,17,645,42"/>
+</map>

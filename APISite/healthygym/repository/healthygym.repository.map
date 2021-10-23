@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./UserRepository.html" title="healthygym.repository.UserRepository" alt="" coords="16,11,124,53"/>
+<area shape="rect" id="node2_1" href="./SelfReportRepository.html" title="healthygym.repository.SelfReportRepository" alt="" coords="170,11,311,53"/>
+<area shape="rect" id="node3_2" href="./RiskDetailRepository.html" title="healthygym.repository.RiskDetailRepository" alt="" coords="357,11,497,53"/>
+<area shape="rect" id="node4_3" href="./CheckInRepository.html" title="healthygym.repository.CheckInRepository" alt="" coords="543,11,671,53"/>
+</map>
